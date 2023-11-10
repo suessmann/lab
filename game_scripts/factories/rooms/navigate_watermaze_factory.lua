@@ -40,6 +40,8 @@ function factory.createLevelApi(kwargs)
   assert(kwargs.mapName)
   assert(kwargs.spawnRadius)
   assert(kwargs.episodeLengthSeconds)
+  assert(kwargs.x)
+  assert(kwargs.y)
 
   local api = {}
 
@@ -47,11 +49,7 @@ function factory.createLevelApi(kwargs)
     random:seed(seed)
     randomMap:seed(seed)
 
-    local alpha = random:uniformReal(0, 2 * math.pi)
-    local r = kwargs.spawnRadius * math.sqrt(random:uniformReal(0, 1))
-    local x = r * math.cos(alpha)
-    local y = r * math.sin(alpha)
-    local origin = x .. ' ' .. y .. ' 0'
+    local origin = kwargs.x .. ' ' .. kwargs.y .. ' 0'
     api._platformOrigin = origin
   end
 
@@ -68,6 +66,7 @@ function factory.createLevelApi(kwargs)
       local x, y = unpack(helpers.spawnVarToNumberTable(spawnVars.origin))
       local length = math.sqrt(x * x + y * y)
       spawnVars.angle = tostring(math.deg(math.atan2(-y / length, -x / length)))
+    spawnVars.origin = '0 0 50'
     end
 
     return spawnVars
@@ -80,7 +79,7 @@ function factory.createLevelApi(kwargs)
   function api:trigger(spawnId, targetName)
     if spawnId == 0 and targetName == 'reward' then
       local _platformReward = 1
-      local _rewardLimit = 5
+      local _rewardLimit = 1
 
       if api._addedReward >= _rewardLimit then
         game:finishMap()

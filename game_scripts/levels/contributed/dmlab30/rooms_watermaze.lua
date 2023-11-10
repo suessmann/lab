@@ -17,8 +17,13 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 local factory = require 'factories.rooms.navigate_watermaze_factory'
 
+local factory = require 'factories.rooms.navigate_watermaze_factory'
+
 return factory.createLevelApi{
     mapName = 'em_watermaze',
-    spawnRadius = 580,
+    spawnRadius = 0,
     episodeLengthSeconds = 120,
+    x=0,
+    y=600
 }
+
