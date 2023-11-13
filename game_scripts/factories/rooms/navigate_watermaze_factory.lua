@@ -79,7 +79,7 @@ function factory.createLevelApi(kwargs)
   function api:trigger(spawnId, targetName)
     if spawnId == 0 and targetName == 'reward' then
       local _platformReward = 1
-      local _rewardLimit = 5
+      local _rewardLimit = 1
       if api._addedReward >= _rewardLimit then
         game:finishMap()
       else
